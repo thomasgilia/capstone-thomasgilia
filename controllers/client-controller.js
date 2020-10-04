@@ -52,7 +52,7 @@ exports.getAllClients = async(req,res)=>{
   try{
     // let allClients = await Client.findAll();
     // res.json(allClients);
-    let randomString = "random string"
+    let randomString = ["random string"]
     res.send(randomString)
   }catch(error){
     console.log("HERE/'S THE ERROR " + error);
