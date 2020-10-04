@@ -1,4 +1,6 @@
 const Client = require("../db").Client;
+// const { default: Axios } = require("axios");
+const axios = require("axios").default;
 
 exports.newClientPage = (req, res) => {
   res.render('createClient', { existingClient: false });
@@ -35,12 +37,58 @@ exports.viewClient = async (req, res) => {
   }
 };
 
-exports.listClients = async (req, res) => {
-  try {
-    let allClients = await Client.findAll();
-    console.log(allClients);
-    res.render('listClients', { allClients });
-  } catch (error) {
-    console.log("HERE'S THE ERROR IN LISTCLIENTS: " + error);
+// exports.listClients = async (req, res) => {
+//   try {
+//     let allClients = await Client.findAll();
+//     // console.log(allClients);
+//     res.render('listClients', { allClients }); res.json(notes);
+//   } catch (error) {
+//     console.log("HERE'S THE ERROR IN LISTCLIENTS: " + error);
+//   }
+// };
+
+// //-----------experimentation code--------------------
+exports.listClients = async(req,res)=>{
+  try{
+    // let allClients = await Client.findAll();
+    // res.json(allClients);
+    let randomString = "random string"
+    res.send(randomString)
+  }catch(error){
+    console.log("HERE/'S THE ERROR " + error);
   }
 };
+
+// exports.listClients = async (req, res) => {
+//   try {
+//     let allClients = await Client.findAll();
+//     console.log(allClients);
+//     console.log("THIS IS THE RES: " + res)
+//     // res.render('listClients', { allClients });
+//   } catch (error) {
+//     console.log("HERE'S THE ERROR IN LISTCLIENTS: " + error);
+//   }
+// };
+
+// async function getUser() {
+//   try {
+//     const response = await axios.get('/user?ID=12345');
+//     console.log(response);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+// exports.listClients = async (req, res, next) => {
+//   try {
+//     const response = await axios.get('localhost:32772/capstone')
+//   // let allClients = await Client.findAll();
+//   // let res = await Client.findAll();
+//   // console.log(allClients);   //is working, gives promise or obj of exsiting clients
+//   console.log("THIS IS THE RES: " + res)    //is an array of arrays of sequlize instance
+//   // res.render('listClients', { allClients });
+// } catch (error) {
+//   console.log("HERE'S THE ERROR IN LISTCLIENTS: " + error);
+// }
+// }
+
+// //-----------end experimentation code--------------------

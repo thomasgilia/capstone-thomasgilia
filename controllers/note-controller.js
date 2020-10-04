@@ -171,7 +171,7 @@ exports.addDocToNote = async (req, res) => {
     for (let note of notesThisDoc) {
       tempNoteIdArray.push(note.id);
     }
-    console.log(tempNoteIdArray);
+    // console.log(tempNoteIdArray);
     res.render("viewNote", {
       resources, resourceType: "Note", success: "Association processed", allDocsThisClient,
       thisClient, docsThisNote
@@ -216,3 +216,15 @@ exports.editNote = async (req, res) => {
   }
 };
 
+//-------------------experiment---------------------
+//insomnia version of get all notes
+//works to send striaght json to browser
+exports.getAllNotes = async(req,res)=>{
+  try{
+    let notes = await Note.findAll();
+    res.json(notes);
+  }catch(error){
+    console.log("HERE/'S THE ERROR " + error);
+  }
+};
+//-------------------end experiment-------------------

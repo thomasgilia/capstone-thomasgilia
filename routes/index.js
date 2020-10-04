@@ -7,8 +7,9 @@ const userController = require("../controllers/user-controller");
 
 router
   .route("/notes")
-  .get(noteController.newResource)
-  .post(noteController.newNote);
+  // .get(noteController.newResource) commented out for experiment
+  .post(noteController.newNote)
+  .get(noteController.getAllNotes)  //experiment
 
 router
   .route("/notes/note:id")
@@ -34,33 +35,33 @@ router.route("/docs/note:noteId/client:clientId")
 
 router
   .route("/docs")
-  .post(docController.newDoc)         
+  .post(docController.newDoc)
   .get(docController.rerouteNewDoc);
 
-router.route("/documents").get(docController.rerouteNewDoc);  
+router.route("/documents").get(docController.rerouteNewDoc);
 
 router
-  .route("/docs/note:id")             
-  .get(docController.newResource)    
+  .route("/docs/note:id")
+  .get(docController.newResource)
 
-router               
+router
   .route("/docs/doc:id")
   .get(docController.viewDoc);
 
 router
   .route("/clients")
   .get(clientController.newClientPage)
-  .post(clientController.newClient)    
+  .post(clientController.newClient)
 router
   .route("/listClients")
-  .get(clientController.listClients)    
+  .get(clientController.listClients)
 
-router            
+router
   .route("/clients/client:id")
   .get(clientController.viewClient);
 
 router.route("/listAllResources").post(NoteDocController.listAllResources);
 
-router.route("/homepage").get(userController.homepage); 
+router.route("/homepage").get(userController.homepage);
 
 module.exports = router;

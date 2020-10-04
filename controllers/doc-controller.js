@@ -75,7 +75,7 @@ exports.deleteDoc = async (req, res) => {
   try {
     let allClients = Client.findAll();
     let obsoleteDocId = req.body.obsoleteDocId;
-    console.log(obsoleteDocId);
+    // console.log(obsoleteDocId);
     const obsoleteDoc = await Doc.findByPk(obsoleteDocId);
     await obsoleteDoc.destroy();
     const clientId = req.body.clientId;
