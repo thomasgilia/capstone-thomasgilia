@@ -1,6 +1,6 @@
 const Client = require("../db").Client;
 // const { default: Axios } = require("axios");
-const axios = require("axios").default;
+// const axios = require("axios").default;
 
 exports.newClientPage = (req, res) => {
   res.render('createClient', { existingClient: false });
@@ -37,18 +37,18 @@ exports.viewClient = async (req, res) => {
   }
 };
 
-// exports.listClients = async (req, res) => {
-//   try {
-//     let allClients = await Client.findAll();
-//     // console.log(allClients);
-//     res.render('listClients', { allClients }); res.json(notes);
-//   } catch (error) {
-//     console.log("HERE'S THE ERROR IN LISTCLIENTS: " + error);
-//   }
-// };
+exports.listClients = async (req, res) => {
+  try {
+    let allClients = await Client.findAll();
+    console.log(allClients);
+    res.render('listClients', { allClients }); 
+  } catch (error) {
+    console.log("HERE'S THE ERROR IN LISTCLIENTS: " + error);
+  }
+};
 
 // //-----------experimentation code--------------------
-exports.listClients = async(req,res)=>{
+exports.getAllClients = async(req,res)=>{
   try{
     // let allClients = await Client.findAll();
     // res.json(allClients);

@@ -7,9 +7,11 @@ const userController = require("../controllers/user-controller");
 
 router
   .route("/notes")
-  // .get(noteController.newResource) commented out for experiment
+  .get(noteController.newResource) //commented out for experiment
   .post(noteController.newNote)
-  .get(noteController.getAllNotes)  //experiment
+
+router.route("/getAllNotes").get(noteController.getAllNotes)
+// .get(noteController.getAllNotes)  //experiment
 
 router
   .route("/notes/note:id")
@@ -55,6 +57,9 @@ router
 router
   .route("/listClients")
   .get(clientController.listClients)
+router              //experiment
+  .route("/getAllClients")
+  .get(clientController.getAllClients)
 
 router
   .route("/clients/client:id")
