@@ -217,13 +217,14 @@ exports.editNote = async (req, res) => {
 };
 
 //-------------------experiment---------------------
-//insomnia version of get all notes
 //works to send striaght json to browser
-exports.getAllNotes = async(req,res)=>{
-  try{
+exports.getAllNotes = async (req, res) => {
+  try {
     let notes = await Note.findAll();
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
     res.json(notes);
-  }catch(error){
+  } catch (error) {
     console.log("HERE/'S THE ERROR " + error);
   }
 };

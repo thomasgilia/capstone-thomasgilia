@@ -1,6 +1,4 @@
 const Client = require("../db").Client;
-// const { default: Axios } = require("axios");
-// const axios = require("axios").default;
 
 exports.newClientPage = (req, res) => {
   res.render('createClient', { existingClient: false });
@@ -21,7 +19,7 @@ exports.newClient = async (req, res) => {
     } else {
       thisClient = await Client.create(req.body);
     }
-    res.render('viewClient', { thisClient });
+    res.json(thisClient);
   } catch (error) {
     console.log("HERE'S THE ERROR IN NEWCLIENT: " + error);
   }
@@ -31,7 +29,7 @@ exports.viewClient = async (req, res) => {
   try {
     let clientId = req.params.id;
     let thisClient = await Client.findByPk(clientId);
-    res.render('viewClient', { thisClient });
+    res.json(thisClient);
   } catch (error) {
     console.log("HERE'S THE ERROR IN VIEWCLIENT: " + error);
   }
@@ -40,21 +38,18 @@ exports.viewClient = async (req, res) => {
 exports.listClients = async (req, res) => {
   try {
     let allClients = await Client.findAll();
-    console.log(allClients);
-    res.render('listClients', { allClients }); 
+    res.json(allClients);
   } catch (error) {
     console.log("HERE'S THE ERROR IN LISTCLIENTS: " + error);
   }
 };
 
 // //-----------experimentation code--------------------
-exports.getAllClients = async(req,res)=>{
-  try{
-    // let allClients = await Client.findAll();
-    // res.json(allClients);
-    let randomString = ["random string"]
-    res.send(randomString)
-  }catch(error){
+exports.getAllClients = async (req, res) => {
+  try {
+    let allClients = await Client.findAll();
+    res.json(allClients);
+  } catch (error) {
     console.log("HERE/'S THE ERROR " + error);
   }
 };

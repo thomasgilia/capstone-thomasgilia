@@ -7,7 +7,7 @@ const userController = require("../controllers/user-controller");
 
 router
   .route("/notes")
-  .get(noteController.newResource) //commented out for experiment
+  .get(noteController.newResource)
   .post(noteController.newNote)
 
 router.route("/getAllNotes").get(noteController.getAllNotes)
