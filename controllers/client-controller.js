@@ -1,5 +1,30 @@
 const Client = require("../db").Client;
 
+exports.viewClient = async (req, res) => {
+  try {
+    let clientId = req.params.id;
+    let thisClient = await Client.findByPk(clientId);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.json(thisClient);
+  } catch (error) {
+    console.log("HERE'S THE ERROR IN VIEWCLIENT: " + error);
+  }
+};
+
+exports.getAllClients = async (req, res) => {
+  try {
+    let allClients = await Client.findAll();
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.json(allClients);
+  } catch (error) {
+    console.log("HERE/'S THE ERROR " + error);
+  }
+};
+
+
+//-----------------------------------end new note-doc-app code---------------------
 exports.newClientPage = (req, res) => {
   res.render('createClient', { existingClient: false });
 };
@@ -16,19 +41,23 @@ exports.newClient = async (req, res) => {
     if (allClients.length <= 1) {
       await Client.create(allClientsClient1);
       thisClient = await Client.create(req.body);
-    } else {
+    } else {      
       thisClient = await Client.create(req.body);
     }
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
     res.json(thisClient);
   } catch (error) {
     console.log("HERE'S THE ERROR IN NEWCLIENT: " + error);
   }
 };
 
-exports.viewClient = async (req, res) => {
+exports.viewClientOld = async (req, res) => {
   try {
     let clientId = req.params.id;
     let thisClient = await Client.findByPk(clientId);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
     res.json(thisClient);
   } catch (error) {
     console.log("HERE'S THE ERROR IN VIEWCLIENT: " + error);
@@ -38,21 +67,15 @@ exports.viewClient = async (req, res) => {
 exports.listClients = async (req, res) => {
   try {
     let allClients = await Client.findAll();
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
     res.json(allClients);
   } catch (error) {
     console.log("HERE'S THE ERROR IN LISTCLIENTS: " + error);
   }
 };
 
-// //-----------experimentation code--------------------
-exports.getAllClients = async (req, res) => {
-  try {
-    let allClients = await Client.findAll();
-    res.json(allClients);
-  } catch (error) {
-    console.log("HERE/'S THE ERROR " + error);
-  }
-};
+
 
 // exports.listClients = async (req, res) => {
 //   try {

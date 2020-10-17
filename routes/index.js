@@ -5,13 +5,29 @@ const clientController = require("../controllers/client-controller");
 const NoteDocController = require("../controllers/NoteDoc-controller");
 const userController = require("../controllers/user-controller");
 
+router              //working gatsby version
+  .route("/getAllClients")
+  .get(clientController.getAllClients)
+
+router
+  .route("/getAllNotes")
+  .get(noteController.getAllNotes)  //working gatsby version
+
+router              //working gatsby version
+  .route("/getAllDocs")
+  .get(docController.getAllDocs)
+
+  router.route("/getAllResources").post(NoteDocController.getAllResources);
+router
+  .route("/clients/client:id")      //check if client:id or just id and clienst or client
+  .get(clientController.viewClient);
+
+//----------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------
 router
   .route("/notes")
   .get(noteController.newResource)
   .post(noteController.newNote)
-
-router.route("/getAllNotes").get(noteController.getAllNotes)
-// .get(noteController.getAllNotes)  //experiment
 
 router
   .route("/notes/note:id")
@@ -57,13 +73,11 @@ router
 router
   .route("/listClients")
   .get(clientController.listClients)
-router              //experiment
-  .route("/getAllClients")
-  .get(clientController.getAllClients)
+
 
 router
   .route("/clients/client:id")
-  .get(clientController.viewClient);
+  .get(clientController.viewClientOld);
 
 router.route("/listAllResources").post(NoteDocController.listAllResources);
 

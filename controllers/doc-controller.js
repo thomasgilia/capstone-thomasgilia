@@ -19,7 +19,7 @@ exports.newDoc = async (req, res) => {
   try {
     let resources = await Doc.create(req.body);
     let docId = resources.id;
-    let noteId = req.body.noteId; 
+    let noteId = req.body.noteId;
     let tempThisNote = await Note.findByPk(noteId);
     let clientId = tempThisNote.clientId;
     let thisClient = await Client.findByPk(clientId);
@@ -155,3 +155,16 @@ exports.updateDoc = async (req, res) => {
     console.log("HERE'S THE ERROR IN UPDATEDOC: " + error);
   }
 };
+
+//just to get docs - will not exist later
+exports.getAllDocs = async (req, res) => {
+  try {
+    let docs = await Doc.findAll();
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.json(docs)
+  } catch (error) {
+    console.log("HERE'S THE ERROR: " + error);
+  }
+};
+
