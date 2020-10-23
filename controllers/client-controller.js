@@ -1,4 +1,5 @@
 const Client = require("../db").Client;
+const axios = require("axios");
 
 exports.viewClient = async (req, res) => {
   try {
@@ -65,6 +66,7 @@ exports.newClient = async (req, res) => {
     // console.log(thisClient)
     // res.header("Access-Control-Allow-Origin", "*");
     // res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  axios.post(`https://api.netlify.com/build_hooks/5f92416876a5163859e835d1`)
     res.json(thisClient)
     // res.redirect("/");      //????????????????????????????????????/
   } catch (error) {
