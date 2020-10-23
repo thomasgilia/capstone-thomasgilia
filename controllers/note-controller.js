@@ -10,6 +10,7 @@ exports.viewNote = async (req, res) => {
     let clientId = resources.clientId;
     const thisClient = await Client.findByPk(clientId);
     const clientNotes = await thisClient.getNotes();
+    console.log(clientNotes)
     let docsThisNote = await resources.getDocs();
     let allDocsThisClient = [];
     let tempDocIds = [];
