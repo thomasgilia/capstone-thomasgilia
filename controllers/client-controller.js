@@ -12,6 +12,23 @@ exports.viewClient = async (req, res) => {
   }
 };
 
+exports.viewClientNotes = async (req, res) => {
+  try {
+    // console.log(req)
+    let clientId = req.params.id;
+    // let clientId = 1;
+    const thisClient = await Client.findByPk(clientId);
+    const clientNotes = await thisClient.getNotes();
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    console.log(clientNotes)
+    res.json(clientNotes);
+    //  res.json(clientNotes);
+  } catch (error) {
+    console.log("HERE'S THE ERROR IN VIEWCLIENTNOTES" + error);
+  }
+}
+
 exports.getAllClients = async (req, res) => {
   try {
     let allClients = await Client.findAll();
@@ -31,6 +48,7 @@ exports.newClientPage = (req, res) => {
 
 exports.newClient = async (req, res) => {
   try {
+    console.log(req.body)
     //always create 'all clients' as client with id 1 if not already created
     let allClientsClient1 = {
       clientName: "General/All Clients", ownedByUser: false, ownedBy: "N/A", keyClient: false,
@@ -41,12 +59,14 @@ exports.newClient = async (req, res) => {
     if (allClients.length <= 1) {
       await Client.create(allClientsClient1);
       thisClient = await Client.create(req.body);
-    } else {      
+    } else {
       thisClient = await Client.create(req.body);
     }
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    res.json(thisClient);
+    // console.log(thisClient)
+    // res.header("Access-Control-Allow-Origin", "*");
+    // res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.json(thisClient)
+    // res.redirect("/");      //????????????????????????????????????/
   } catch (error) {
     console.log("HERE'S THE ERROR IN NEWCLIENT: " + error);
   }

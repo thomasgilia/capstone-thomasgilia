@@ -17,11 +17,14 @@ router              //working gatsby version
   .route("/getAllDocs")
   .get(docController.getAllDocs)
 
-  router.route("/getAllResources").post(NoteDocController.getAllResources);
+router.route("/getAllResources").post(NoteDocController.getAllResources);
 router
   .route("/clients/client:id")      //check if client:id or just id and clienst or client
   .get(clientController.viewClient);
-
+router
+  .route("/notes/client:id")
+  .get(clientController.viewClientNotes)
+  .post(noteController.newNote);
 //----------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------
 router
