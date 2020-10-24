@@ -5,8 +5,8 @@ exports.viewClient = async (req, res) => {
   try {
     let clientId = req.params.id;
     let thisClient = await Client.findByPk(clientId);
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    // res.header("Access-Control-Allow-Origin", "*");
+    // res.header("Access-Control-Allow-Headers", "X-Requested-With");
     res.json(thisClient);
   } catch (error) {
     console.log("HERE'S THE ERROR IN VIEWCLIENT: " + error);
@@ -20,8 +20,8 @@ exports.viewClientNotes = async (req, res) => {
     // let clientId = 1;
     const thisClient = await Client.findByPk(clientId);
     const clientNotes = await thisClient.getNotes();
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    // res.header("Access-Control-Allow-Origin", "*");
+    // res.header("Access-Control-Allow-Headers", "X-Requested-With");
     console.log(clientNotes)
     res.json(clientNotes);
     //  res.json(clientNotes);
@@ -33,8 +33,8 @@ exports.viewClientNotes = async (req, res) => {
 exports.getAllClients = async (req, res) => {
   try {
     let allClients = await Client.findAll();
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    // res.header("Access-Control-Allow-Origin", "*");
+    // res.header("Access-Control-Allow-Headers", "X-Requested-With");
     res.json(allClients);
   } catch (error) {
     console.log("HERE/'S THE ERROR " + error);

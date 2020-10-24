@@ -42,17 +42,17 @@ exports.viewNote = async (req, res) => {
 
 exports.newNote = async (req, res) => {
   try {
-    let transferObjData = { ...req.body.transferObj }
-    let input = transferObjData.input
-    // let id = transferObjData.id
-    console.log("anything happening?")
-    console.log(input)
-    let reqBodyObj = req.body;
+    
+    // let input = req.body.input
+    let clientId = req.body.id
+    // console.log("anything happening????")
+    // console.log(req.body.id)
+    let reqBodyObj = req.body.input;
+    // console.log(reqBodyObj)
     let newNote = await Note.create(reqBodyObj);
     let noteId = newNote.id;
-    // let allClients = await Client.findAll();
-    //----------begin add client functionality
-    const clientId = req.body.clientId;
+    // // let allClients = await Client.findAll();
+    // //----------begin add client functionality
     const thisClient = await Client.findByPk(clientId);
     const clientNotes = await thisClient.getNotes();
     let noteIdArray = [noteId];
@@ -62,9 +62,9 @@ exports.newNote = async (req, res) => {
     //--set/reset all notes to that client
     await thisClient.setNotes(noteIdArray);
     // let resources = await Note.findByPk(noteId);
-    // const updatedClientNotes = await thisClient.getNotes(); send these??
-
-    res.json(clientId)
+    const updatedClientNotes = await thisClient.getNotes(); //send these??
+console.log(updatedClientNotes)
+    res.json(clientId)  
   } catch (error) {
     console.log("HERE'S THE ERROR IN NEWNOTE: " + error);
   }

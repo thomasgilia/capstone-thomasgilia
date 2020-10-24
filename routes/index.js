@@ -27,10 +27,10 @@ router
   .post(noteController.newNote);
 //----------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------
-router
-  .route("/notes")
-  .get(noteController.newResource)
-  .post(noteController.newNote)
+// router
+//   .route("/notes")
+//   .get(noteController.newResource)
+//   .post(noteController.newNote)
 
 router
   .route("/notes/note:id")
