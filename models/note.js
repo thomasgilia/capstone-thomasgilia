@@ -13,7 +13,7 @@ module.exports = (sequelize, Sequelize) => {
     ), allowNull: false},
     title: { type: Sequelize.STRING, allowNull: false },
     note: { type: Sequelize.TEXT, allowNull: false },
-    setUrgent: { type: Sequelize.BOOLEAN, allowNull: false },
+    flagUrgent: { type: Sequelize.BOOLEAN, allowNull: false },
     flagExpires: { type: Sequelize.STRING },
     revisionLog: { type: Sequelize.TEXT, allowNull: false },
   });
