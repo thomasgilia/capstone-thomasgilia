@@ -63,10 +63,11 @@ exports.newClient = async (req, res) => {
     } else {
       thisClient = await Client.create(req.body);
     }
-    // console.log(thisClient)
+    console.log(thisClient)
     // res.header("Access-Control-Allow-Origin", "*");
+    // res.json(thisClient)
     // res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  axios.post(`https://api.netlify.com/build_hooks/5f92416876a5163859e835d1`)
+    axios.post(`https://api.netlify.com/build_hooks/5f92416876a5163859e835d1`)
     res.json(thisClient)
     // res.redirect("/");      //????????????????????????????????????/
   } catch (error) {

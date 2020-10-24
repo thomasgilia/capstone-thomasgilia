@@ -40,23 +40,17 @@ exports.viewNote = async (req, res) => {
   }
 }
 
-
-//----------------------end new note-doc-app code----------------------------------------------
-
-exports.newResource = async (req, res) => {
-  let allClients = await Client.findAll();
-  res.render('createNote', {
-    action: 'notes', buttonText: 'Create Note', resourceType: "Note", allClients,
-    isNote: true, existingResource: false
-  });
-};
-
 exports.newNote = async (req, res) => {
   try {
+    let transferObjData = { ...req.body.transferObj }
+    let input = transferObjData.input
+    // let id = transferObjData.id
+    console.log("anything happening?")
+    console.log(input)
     let reqBodyObj = req.body;
     let newNote = await Note.create(reqBodyObj);
     let noteId = newNote.id;
-    let allClients = await Client.findAll();
+    // let allClients = await Client.findAll();
     //----------begin add client functionality
     const clientId = req.body.clientId;
     const thisClient = await Client.findByPk(clientId);
@@ -67,33 +61,64 @@ exports.newNote = async (req, res) => {
     };
     //--set/reset all notes to that client
     await thisClient.setNotes(noteIdArray);
-    let resources = await Note.findByPk(noteId);
-    let docsThisNote = await resources.getDocs();
-    const updatedClientNotes = await thisClient.getNotes();
-    let allDocsThisClient = [];
-    let tempDocIds = [];
-    for (let note of updatedClientNotes) {
-      thisNoteId = note.id;
-      thisNote = await Note.findByPk(thisNoteId, { include: [Doc] });
-      docsForThisNote = await thisNote.getDocs();
-      for (let doc of docsForThisNote) {
-        let docId = doc.id;
-        tempDocIds.push(docId);
-      }
-    }
-    let finalDocIds = [...new Set(tempDocIds)];   //getting rid of duplicates
-    for (let docId of finalDocIds) {
-      let doc = await Doc.findByPk(docId);
-      allDocsThisClient.push(doc);
-    }
-    res.render("viewNote", {
-      resourceType: "Note", existingResource: false, resources, allClients, thisClient, docsThisNote, allDocsThisClient,
-      isNote: true
-    });
+    // let resources = await Note.findByPk(noteId);
+    // const updatedClientNotes = await thisClient.getNotes(); send these??
+
+    res.json(clientId)
   } catch (error) {
     console.log("HERE'S THE ERROR IN NEWNOTE: " + error);
   }
 };
+//----------------------end new note-doc-app code----------------------------------------------
+
+exports.newResource = async (req, res) => {
+  let allClients = await Client.findAll();
+  res.render('createNote', {
+    action: 'notes', buttonText: 'Create Note', resourceType: "Note", allClients,
+    isNote: true, existingResource: false
+  });
+};
+
+// exports.newNote = async (req, res) => {
+//   try {
+//     let reqBodyObj = req.body;
+//     let newNote = await Note.create(reqBodyObj);
+//     let noteId = newNote.id;
+//     let allClients = await Client.findAll();
+//     //----------begin add client functionality
+//     const clientId = req.body.clientId;
+//     const thisClient = await Client.findByPk(clientId);
+//     const clientNotes = await thisClient.getNotes();
+//     let noteIdArray = [noteId];
+//     for (let note of clientNotes) {
+//       noteIdArray.push(note.id);
+//     };
+//     //--set/reset all notes to that client
+//     await thisClient.setNotes(noteIdArray);
+//     let resources = await Note.findByPk(noteId);
+//     let docsThisNote = await resources.getDocs();
+//     const updatedClientNotes = await thisClient.getNotes();
+//     let allDocsThisClient = [];
+//     let tempDocIds = [];
+//     for (let note of updatedClientNotes) {
+//       thisNoteId = note.id;
+//       thisNote = await Note.findByPk(thisNoteId, { include: [Doc] });
+//       docsForThisNote = await thisNote.getDocs();
+//       for (let doc of docsForThisNote) {
+//         let docId = doc.id;
+//         tempDocIds.push(docId);
+//       }
+//     }
+//     let finalDocIds = [...new Set(tempDocIds)];   //getting rid of duplicates
+//     for (let docId of finalDocIds) {
+//       let doc = await Doc.findByPk(docId);
+//       allDocsThisClient.push(doc);
+//     }
+//   res.json({clientId: clientId})
+//   } catch (error) {
+//     console.log("HERE'S THE ERROR IN NEWNOTE: " + error);
+//   }
+// };
 
 // exports.viewNote = async (req, res) => {
 //   try {
@@ -164,7 +189,6 @@ exports.updateNote = async (req, res) => {
     console.log("HERE'S THE ERROR IN UPDATENOTE: " + error);
   }
 };
-
 exports.addDocToNote = async (req, res) => {
   try {
     const clientId = req.body.clientId;
