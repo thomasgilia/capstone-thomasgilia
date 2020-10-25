@@ -41,6 +41,22 @@ exports.getAllClients = async (req, res) => {
   }
 };
 
+exports.deleteClient = async (req, res) => {
+  try {
+    const clientId = req.params.id;
+    const obsoleteClient = await Client.findByPk(clientId);
+    let name = obsoleteClient.clientName;
+    if (!obsoleteClient) {
+      res.status(404).send();
+      return;
+    }
+    await obsoleteClient.destroy();
+    console.log(`Client "${name}" was deleted`);
+    res.json("client was deleted");
+  } catch (error) {
+    console.log("HERE'S THE ERROR IN DELETECLIENT: " + error);
+  }
+};
 
 //-----------------------------------end new note-doc-app code---------------------
 exports.newClientPage = (req, res) => {

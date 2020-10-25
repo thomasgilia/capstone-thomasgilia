@@ -25,6 +25,10 @@ router
   .route("/notes/client:id")
   .get(clientController.viewClientNotes)
   .post(noteController.newNote);
+
+  router
+  .route("/notes/note:id")
+  .get(noteController.viewNote);
 //----------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------
 // router
@@ -32,14 +36,16 @@ router
 //   .get(noteController.newResource)
 //   .post(noteController.newNote)
 
-router
-  .route("/notes/note:id")
-  .get(noteController.viewNote);
+
 
 router
   .route("/delete/note:id")
   .get(noteController.deleteNote)
-
+ 
+  router
+  .route("/delete/client:id")
+  .get(clientController.deleteClient)
+  
 router.route("/edit/Note:id")
   .get(noteController.editNote)
   .post(noteController.updateNote);

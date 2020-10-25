@@ -6,35 +6,12 @@ exports.viewNote = async (req, res) => {
   try {
     let noteId = req.params.id;
     let resources = await Note.findByPk(noteId);
-    let allClients = await Client.findAll();
-    let clientId = resources.clientId;
-    const thisClient = await Client.findByPk(clientId);
-    const clientNotes = await thisClient.getNotes();
-    console.log(clientNotes)
-    let docsThisNote = await resources.getDocs();
-    let allDocsThisClient = [];
-    let tempDocIds = [];
-    for (let note of clientNotes) {
-      thisNoteId = note.id;
-      thisNote = await Note.findByPk(thisNoteId, { include: [Doc] });
-      docsForThisNote = await thisNote.getDocs();
-      for (let doc of docsForThisNote) {
-        let docId = doc.id;
-        tempDocIds.push(docId);
-      }
-    }
-    let finalDocIds = [...new Set(tempDocIds)];   //getting rid of duplicates
-    for (let docId of finalDocIds) {
-      let doc = await Doc.findByPk(docId);
-      allDocsThisClient.push(doc);
-    }
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    res.json(clientNotes);//, docsThisNote etc
+    // let clientId = resources.clientId;
+    // const thisClient = await Client.findByPk(clientId);
+    // const clientNotes = await thisClient.getNotes();
 
-    // res.render("viewNote", {
-    //   resourceType: "Note", existingResource: true, resources, allClients, thisClient, docsThisNote, allDocsThisClient
-    // });
+    res.json(resources);//, docsThisNote etc
+
   } catch (error) {
     console.log("HERE'S THE ERROR IN VIEWNOTE" + error);
   }
