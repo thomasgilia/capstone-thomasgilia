@@ -46,6 +46,21 @@ console.log(updatedClientNotes)
     console.log("HERE'S THE ERROR IN NEWNOTE: " + error);
   }
 };
+exports.updateNote = async (req, res) => {
+  try {
+    let noteId = req.body.id;
+    await Note.upsert(req.body);
+    // let resources = await Note.findByPk(noteId);
+    // let clientId = resources.clientId;
+    // let thisClient = await Client.findByPk(clientId);
+    //--grab all notes for that client after added the note
+    // const updatedClientNotes = await thisClient.getNotes();
+    res.json("note was updated")  
+  } catch (error) {
+    console.log("HERE'S THE ERROR IN UPDATENOTE: " + error);
+  }
+};
+
 //----------------------end new note-doc-app code----------------------------------------------
 
 exports.newResource = async (req, res) => {
@@ -130,42 +145,7 @@ exports.newResource = async (req, res) => {
 //   }
 // }
 
-exports.updateNote = async (req, res) => {
-  try {
-    let noteId = req.body.id;
-    await Note.upsert(req.body);
-    let resources = await Note.findByPk(noteId);
-    let allClients = await Client.findAll();
-    let clientId = resources.clientId;
-    let thisClient = await Client.findByPk(clientId);
-    let docsThisNote = await resources.getDocs();
-    //--grab all notes for that client after added the note
-    const updatedClientNotes = await thisClient.getNotes();
-    let allDocsThisClient = [];
-    let tempDocIds = [];
-    for (let note of updatedClientNotes) {
-      thisNoteId = note.id;
-      thisNote = await Note.findByPk(thisNoteId, { include: [Doc] });
-      docsForThisNote = await thisNote.getDocs();
-      for (let doc of docsForThisNote) {
-        let docId = doc.id;
-        tempDocIds.push(docId);
-      }
-    }
-    let finalDocIds = [...new Set(tempDocIds)];   //getting rid of duplicates
-    for (let docId of finalDocIds) {
-      let doc = await Doc.findByPk(docId);
-      allDocsThisClient.push(doc);
-    }
-    res.render("viewNote", {
-      resourceType: "Note", existingResource: true, resources, allClients, buttonText: "Update Note", thisClient,
-      allDocsThisClient, docsThisNote, isNote: true
-    });
 
-  } catch (error) {
-    console.log("HERE'S THE ERROR IN UPDATENOTE: " + error);
-  }
-};
 exports.addDocToNote = async (req, res) => {
   try {
     const clientId = req.body.clientId;
@@ -234,13 +214,12 @@ exports.deleteNote = async (req, res) => {
     }
     await obsoleteNote.destroy();
     console.log(`Note "${title}" was deleted`);
-    let resources = await Note.findAll();
-    res.render('listNotesOrDocs', { resourceType: "Note", resources, isNote: true });
-
+    res.json("note was deleted");
   } catch (error) {
     console.log("HERE'S THE ERROR IN DELETENOTE: " + error);
   }
 };
+
 
 exports.editNote = async (req, res) => {
   try {
