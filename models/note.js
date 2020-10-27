@@ -14,7 +14,6 @@ module.exports = (sequelize, Sequelize) => {
     title: { type: Sequelize.STRING, allowNull: false },
     note: { type: Sequelize.TEXT, allowNull: false },
     flagUrgent: { type: Sequelize.BOOLEAN, allowNull: false },
-    flagExpires: { type: Sequelize.STRING },
     revisionLog: { type: Sequelize.TEXT, allowNull: false },
   });
 };

@@ -21,7 +21,7 @@ exports.newNote = async (req, res) => {
   try {
     
     // let input = req.body.input
-    let clientId = req.body.id
+    let clientId = req.body.clientId
     // console.log("anything happening????")
     // console.log(req.body.id)
     let reqBodyObj = req.body.input;
@@ -46,15 +46,18 @@ console.log(updatedClientNotes)
     console.log("HERE'S THE ERROR IN NEWNOTE: " + error);
   }
 };
+
 exports.updateNote = async (req, res) => {
   try {
     let noteId = req.body.id;
-    await Note.upsert(req.body);
+    let reqBodyObj = req.body.input;
+    await Note.upsert(reqBodyObj);
     // let resources = await Note.findByPk(noteId);
     // let clientId = resources.clientId;
     // let thisClient = await Client.findByPk(clientId);
     //--grab all notes for that client after added the note
     // const updatedClientNotes = await thisClient.getNotes();
+    console.log(reqBodyObj)
     res.json("note was updated")  
   } catch (error) {
     console.log("HERE'S THE ERROR IN UPDATENOTE: " + error);
@@ -221,7 +224,7 @@ exports.deleteNote = async (req, res) => {
 };
 
 
-exports.editNote = async (req, res) => {
+exports.editNote = async (req, res) => {  //not using
   try {
     let id = req.params.id;
     let resources = await Note.findByPk(id);
@@ -242,8 +245,8 @@ exports.editNote = async (req, res) => {
 exports.getAllNotes = async (req, res) => {
   try {
     let notes = await Note.findAll();
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    // res.header("Access-Control-Allow-Origin", "*");
+    // res.header("Access-Control-Allow-Headers", "X-Requested-With");
     res.json(notes);
   } catch (error) {
     console.log("HERE/'S THE ERROR " + error);
