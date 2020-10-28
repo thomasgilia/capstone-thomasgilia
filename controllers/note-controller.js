@@ -19,7 +19,7 @@ exports.viewNote = async (req, res) => {
 
 exports.newNote = async (req, res) => {
   try {
-    
+
     // let input = req.body.input
     let clientId = req.body.clientId
     // console.log("anything happening????")
@@ -40,8 +40,9 @@ exports.newNote = async (req, res) => {
     await thisClient.setNotes(noteIdArray);
     // let resources = await Note.findByPk(noteId);
     const updatedClientNotes = await thisClient.getNotes(); //send these??
-console.log(updatedClientNotes)
-    res.json(clientId)  
+    console.log(updatedClientNotes)
+    // res.json(updatedClientNotes)
+    res.json(clientId)
   } catch (error) {
     console.log("HERE'S THE ERROR IN NEWNOTE: " + error);
   }
@@ -50,6 +51,7 @@ console.log(updatedClientNotes)
 exports.updateNote = async (req, res) => {
   try {
     let noteId = req.body.id;
+    console.log(req.body.input)
     let reqBodyObj = req.body.input;
     await Note.upsert(reqBodyObj);
     // let resources = await Note.findByPk(noteId);
@@ -58,7 +60,7 @@ exports.updateNote = async (req, res) => {
     //--grab all notes for that client after added the note
     // const updatedClientNotes = await thisClient.getNotes();
     console.log(reqBodyObj)
-    res.json("note was updated")  
+    res.json("note was updated")
   } catch (error) {
     console.log("HERE'S THE ERROR IN UPDATENOTE: " + error);
   }

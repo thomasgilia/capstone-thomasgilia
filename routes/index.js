@@ -77,7 +77,7 @@ router
 
 router
   .route("/clients")
-  .get(clientController.newClientPage)
+  // .get(clientController.newClientPage)
   .post(clientController.newClient)
 router
   .route("/listClients")

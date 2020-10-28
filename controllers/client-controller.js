@@ -4,9 +4,9 @@ const axios = require("axios");
 exports.viewClient = async (req, res) => {
   try {
     let clientId = req.params.id;
+
     let thisClient = await Client.findByPk(clientId);
-    // res.header("Access-Control-Allow-Origin", "*");
-    // res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    // console.log(thisClient)
     res.json(thisClient);
   } catch (error) {
     console.log("HERE'S THE ERROR IN VIEWCLIENT: " + error);
@@ -58,10 +58,6 @@ exports.deleteClient = async (req, res) => {
   }
 };
 
-//-----------------------------------end new note-doc-app code---------------------
-exports.newClientPage = (req, res) => {
-  res.render('createClient', { existingClient: false });
-};
 
 exports.newClient = async (req, res) => {
   try {
@@ -69,7 +65,7 @@ exports.newClient = async (req, res) => {
     //always create 'all clients' as client with id 1 if not already created
     let allClientsClient1 = {
       clientName: "General/All Clients", ownedByUser: false, ownedBy: "N/A", keyClient: false,
-      reqQuote: false, reqQuoteApproval: false, standardDiscount: 0, revisionLog: ""
+      reqQuote: false, reqQuoteApproval: false, standardDiscount: 0, revisionLog: "created client"
     };
     let thisClient;
     let allClients = await Client.findAll();
@@ -84,12 +80,14 @@ exports.newClient = async (req, res) => {
     // res.json(thisClient)
     // res.header("Access-Control-Allow-Headers", "X-Requested-With");
     axios.post(`https://api.netlify.com/build_hooks/5f92416876a5163859e835d1`)
-    res.json(thisClient)
+    res.json("client was created")
     // res.redirect("/");      //????????????????????????????????????/
   } catch (error) {
     console.log("HERE'S THE ERROR IN NEWCLIENT: " + error);
   }
 };
+
+//-----------------------------------end new note-doc-app code---------------------
 
 exports.viewClientOld = async (req, res) => {
   try {
