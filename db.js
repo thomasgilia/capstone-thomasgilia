@@ -16,12 +16,12 @@ Client.hasMany(Note);
 Note.belongsTo(Client);
 
 //standard
-// sequelize.sync().then(() => console.log("Tables are created!"));
+sequelize.sync().then(() => console.log("Tables are created!"));
 // sequelize.sync({force:true}).then(() => console.log("Table data has been cleared!"));
 // DROP TABLE DATA
 
 // DROP ALL TABLES - CAUTION
-sequelize.sync().then(() => sequelize.drop());
+// sequelize.sync().then(() => sequelize.drop());
 
 module.exports = {
   Note,
