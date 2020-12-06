@@ -66,7 +66,8 @@ exports.newClient = async (req, res) => {
     } else {
       thisClient = await Client.create(req.body);
     }
-    axios.post(`https://api.netlify.com/build_hooks/5f92416876a5163859e835d1`)
+    // axios.post(`https://api.netlify.com/build_hooks/5f92416876a5163859e835d1`)
+    axios.post(`https://api.netlify.com/build_hooks/5fcd2917faed1304b9d76762`)
     res.json("client was created")
   } catch (error) {
     console.log("HERE'S THE ERROR IN NEWCLIENT: " + error);
